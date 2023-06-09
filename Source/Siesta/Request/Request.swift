@@ -64,6 +64,9 @@ public protocol Request: AnyObject
     /**
       Call the closure once when the request finishes for any reason.
     */
+
+    var repeatCount: Int { get set }
+
     @discardableResult
     func onCompletion(_ callback: @escaping (ResponseInfo) -> Void) -> Request
 

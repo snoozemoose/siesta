@@ -36,6 +36,7 @@ private final class HardWiredRequest: Request
     {
     private let hardWiredResponse: ResponseInfo
 
+    var repeatCount: Int = 0
     let state = RequestState.completed
     let progress: Double = 1
 
@@ -74,5 +75,8 @@ private final class HardWiredRequest: Request
         { DispatchQueue.mainThreadPrecondition() }
 
     func repeated() -> Request
-        { self }
+        {
+            repeatCount += 1
+            return self
+        }
     }

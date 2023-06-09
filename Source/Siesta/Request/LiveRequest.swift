@@ -148,6 +148,8 @@ private final class LiveRequest: Request, RequestCompletionHandler, CustomDebugS
     private var progressTracker = ProgressTracker()
     private var underlyingOperationStarted = false
 
+    var repeatCount: Int = 0
+
     init(delegate: RequestDelegate)
         {
         self.delegate = delegate
@@ -269,7 +271,9 @@ private final class LiveRequest: Request, RequestCompletionHandler, CustomDebugS
 
     func repeated() -> Request
         {
-        Resource.prepareRequest(using: delegate.repeated())
+            let result = Resource.prepareRequest(using: delegate.repeated())
+            result.repeatCount += repeatCount + 1
+            return result
         }
 
     // MARK: Debug
